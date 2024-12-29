@@ -1,6 +1,10 @@
 IP Address Lookup
 -----------------
 
+## Demo
+
+https://ip.greg.ca
+
 ## Installation
 
 - Clone the repository
