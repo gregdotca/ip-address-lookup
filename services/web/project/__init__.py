@@ -5,7 +5,7 @@ import requests
 
 app = Flask(__name__, static_folder="assets")
 
-site_title = "IP Address Lookup"
+APP_TITLE = "IP Address Lookup"
 
 
 @app.route("/<ip_address>", methods=["GET"])
@@ -105,7 +105,7 @@ def process_ip_address(ip_address):
 
 def display_homepage(ip_address, page_body):
     return render_template(
-        "home.html", site_title=site_title, ip_address=ip_address, page_body=page_body
+        "home.html", app_title=APP_TITLE, ip_address=ip_address, page_body=page_body
     )
 
 
