@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+import requests
 from flask import Flask, render_template, request
 from time import sleep
-import requests
 
 app = Flask(__name__, static_folder="assets")
 
