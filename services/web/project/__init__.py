@@ -47,29 +47,29 @@ def process_ip_address(ip_address):
         page_body += "Org: " + result["org"] + "<BR>"
         page_body += "AS: " + result["as"] + "<BR>"
         page_body += (
-                "Location: <strong>"
-                + result["city"]
-                + ", "
-                + result["regionName"]
-                + " ("
-                + result["region"]
-                + ")"
-                + ", "
-                + result["country"]
-                + " ("
-                + result["countryCode"]
-                + ")"
-                + "</strong>"
-                + "<BR>"
+            "Location: <strong>"
+            + result["city"]
+            + ", "
+            + result["regionName"]
+            + " ("
+            + result["region"]
+            + ")"
+            + ", "
+            + result["country"]
+            + " ("
+            + result["countryCode"]
+            + ")"
+            + "</strong>"
+            + "<BR>"
         )
         page_body += "Postal Code: " + result["zip"] + "<BR>"
         page_body += "Time Zone: " + result["timezone"] + "<BR>"
         page_body += (
-                "Latitude & Longitude: "
-                + str(result["lat"])
-                + ", "
-                + str(result["lon"])
-                + "<BR>"
+            "Latitude & Longitude: "
+            + str(result["lat"])
+            + ", "
+            + str(result["lon"])
+            + "<BR>"
         )
 
     except Exception:
