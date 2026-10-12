@@ -1,7 +1,7 @@
 IP Address Lookup
 -----------------
 
-[![ACR B1b](https://img.shields.io/badge/ACR-B1b-2140B5)](ACR.md)
+[![ACR B3b](https://img.shields.io/badge/ACR-B3b-2140B5)](ACR.md)
 
 ## Demo
 
