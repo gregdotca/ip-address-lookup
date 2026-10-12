@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 import requests
+from urllib.parse import quote
 from flask import Flask, redirect, render_template, request, url_for
 from time import sleep
 
 app = Flask(__name__, static_folder="assets")
 
 APP_TITLE = "IP Address Lookup"
+
+# seconds to wait for ip-api before showing the error
+API_TIMEOUT = 5
 
 RESULT_FIELDS = (
     "query",
@@ -53,8 +57,9 @@ def get_user_ip_address():
 
 def lookup_ip_address(ip_address):
     try:
-        api_url = "http://ip-api.com/json/" + ip_address
-        result = requests.get(api_url).json()
+        # encode the address so it can't add a path or query string to the request
+        api_url = "http://ip-api.com/json/" + quote(ip_address, safe="")
+        result = requests.get(api_url, timeout=API_TIMEOUT).json()
 
         if result["status"] != "success":
             return None
