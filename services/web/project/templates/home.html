@@ -21,7 +21,19 @@
         </div>
         <div id="loading" class="pt-8" style="display: none;"><span class="loading loading-xl"></span></div>
     </form>
-    {{ page_body|safe }}
+    {% if is_user_ip %}<strong>Your Public IP Address</strong><BR>{% endif %}
+    {% if result %}
+        <strong>{{ result.query }}</strong><BR>
+        ISP: {{ result.isp }}<BR>
+        Org: {{ result.org }}<BR>
+        AS: {{ result['as'] }}<BR>
+        Location: <strong>{{ result.city }}, {{ result.regionName }} ({{ result.region }}), {{ result.country }} ({{ result.countryCode }})</strong><BR>
+        Postal Code: {{ result.zip }}<BR>
+        Time Zone: {{ result.timezone }}<BR>
+        Latitude &amp; Longitude: {{ result.lat }}, {{ result.lon }}<BR>
+    {% else %}
+        Unable to lookup IP address, please try again.
+    {% endif %}
 </div>
 </body>
 </html>
