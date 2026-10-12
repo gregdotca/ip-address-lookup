@@ -3,8 +3,13 @@ import requests
 from urllib.parse import quote
 from flask import Flask, redirect, render_template, request, url_for
 from time import sleep
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__, static_folder="assets")
+
+# prod runs behind one reverse proxy (Caddy), so trust only the last
+# X-Forwarded-For entry, the one that proxy adds
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
 
 APP_TITLE = "IP Address Lookup"
 
@@ -52,7 +57,7 @@ def home_ip(ip_address):
 
 
 def get_user_ip_address():
-    return request.environ.get("HTTP_X_FORWARDED_FOR", request.remote_addr)
+    return request.remote_addr
 
 
 def lookup_ip_address(ip_address):
