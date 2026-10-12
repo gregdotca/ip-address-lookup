@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en" data-theme="bumblebee">
+<html lang="en">
 <head>
+    <meta name="color-scheme" content="light dark">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ app_title }}</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
@@ -15,7 +16,7 @@
         <div class="flex">
             <fieldset class="fieldset bg-base-200 border border-base-300 p-10 -ml-1 rounded-box">
                 <input id="ip_address" class="input" name="ip_address" placeholder="IP Address" value="{{ ip_address }}" autofocus><BR>
-                <input class="btn btn-accent" type="submit" name="submit" value="Lookup" onclick="$('#loading').show();">
+                <input class="btn btn-accent dark:btn-primary" type="submit" name="submit" value="Lookup" onclick="$('#loading').show();">
             </fieldset>
         </div>
         <div id="loading" class="pt-8" style="display: none;"><span class="loading loading-xl"></span></div>
