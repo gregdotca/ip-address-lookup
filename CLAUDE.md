@@ -32,7 +32,7 @@ Only the prod versions are tracked in git; `docker-compose.DEV.yml`, `Dockerfile
 
 ## Architecture
 
-All app logic is in `services/web/project/__init__.py`; `services/web/manage.py` wraps it in a `FlaskGroup` so gunicorn can load `manage:app`.
+All app logic is in `services/web/project/__init__.py`; `services/web/manage.py` wraps it in a `FlaskGroup` so gunicorn can load `manage:app`. The gunicorn command has `--no-control-socket` because the app doesn't use gunicorn's `gunicornc` control tool, and the `app` user can't create its default socket in `/home/app/.gunicorn`.
 
 - `GET /` redirects to `/<client IP>`; `POST /` (the lookup form) redirects to `/<submitted IP>`, with surrounding whitespace stripped, or back to `/` if nothing is left. Every lookup is therefore a shareable URL. The redirect is built with `url_for`, which encodes the value, so a typed address like `//evil.com` (or a forged `X-Forwarded-For`) can't send the visitor to another site; don't build it by string concatenation.
 - `GET /<ip_address>` sleeps 0.25s (so the loading spinner is visible), then `lookup_ip_address` calls `http://ip-api.com/json/<ip>` and returns the JSON as a dict, or `None` when the lookup fails (`status` isn't `success`), is missing any of `RESULT_FIELDS` (the fields `home.html` shows), or raises. `home.html` renders the dict's fields, or a generic "Unable to lookup" message for `None`.
