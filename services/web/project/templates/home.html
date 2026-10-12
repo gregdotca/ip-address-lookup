@@ -1,24 +1,24 @@
-<html data-theme="bumblebee">
+<!doctype html>
+<html lang="en" data-theme="bumblebee">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ app_title }}</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
     {% include 'custom.headers' ignore missing %}
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0/themes.css" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <body class="p-8">
 <div id="content">
     <h1 class="text-2xl mb-3"><a href="/">{{ app_title }}</a></h1>
-    <form method="POST" action="/" class="form pb-7">
-        <div class="flex justify-left">
+    <form method="POST" action="/" class="pb-7">
+        <div class="flex">
             <fieldset class="fieldset bg-base-200 border border-base-300 p-10 -ml-1 rounded-box">
                 <input id="ip_address" class="input" name="ip_address" placeholder="IP Address" value="{{ ip_address }}" autofocus><BR>
                 <input class="btn btn-accent" type="submit" name="submit" value="Lookup" onclick="$('#loading').show();">
             </fieldset>
         </div>
-        <div id="loading" class="pt-8" style="display: none;"><span class="loading loading-circle loading-xl"></span></div>
+        <div id="loading" class="pt-8" style="display: none;"><span class="loading loading-xl"></span></div>
     </form>
     {{ page_body|safe }}
 </div>
