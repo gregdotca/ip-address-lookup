@@ -35,13 +35,14 @@ RESULT_FIELDS = (
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    if request.method == "GET":
-        ip_address = get_user_ip_address()
-    else:
+    # GET and HEAD look up the visitor's own address; only POST is the form
+    if request.method == "POST":
         ip_address = str(request.form["ip_address"]).strip()
 
         if ip_address == "":
             return redirect(url_for("home"))
+    else:
+        ip_address = get_user_ip_address()
 
     # url_for() encodes the address, so the redirect always stays on this site
     return redirect(url_for("home_ip", ip_address=ip_address))

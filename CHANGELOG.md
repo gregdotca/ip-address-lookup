@@ -2,6 +2,7 @@
 
 ## 2026-10-11
 
+- Fix `HEAD /` returning 400. `home()` in `services/web/project/__init__.py` treated every request that wasn't `GET` as a form submission, so a `HEAD` request (as sent by uptime monitors and link previews) read the missing `ip_address` form field and failed. It now checks for `POST`, and `HEAD` redirects to the visitor's address like `GET`. `CLAUDE.md` notes this so the check isn't reverted.
 - Fix how the visitor's IP address is found. `get_user_ip_address` in `services/web/project/__init__.py` returned the raw `X-Forwarded-For` header, which is a comma-separated list when a request passes through more than one proxy (so `GET /` redirected to `/203.0.113.5, 10.0.0.2` and the lookup failed), and which a visitor can set themselves. Caddy, the reverse proxy in front of prod, adds the real address to the end, so a forged header could make the page label any address as "Your Public IP Address". The app is now wrapped in Werkzeug's `ProxyFix` with `x_for=1`, which trusts only the entry the proxy adds, and uses `request.remote_addr`.
 - Remove jQuery. The vendored `jquery-3.7.1.min.js` (87 KB) was only used to show the loading spinner when the form is submitted, which the Lookup button's `onclick` in `home.html` now does with one line of plain JavaScript.
 - Update `CLAUDE.md` for `ProxyFix` and the removal of jQuery.
