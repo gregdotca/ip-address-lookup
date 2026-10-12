@@ -2,6 +2,7 @@
 
 ## 2026-10-11
 
+- Add an `aria-label` to the IP Address input, matching its placeholder, so screen readers announce the field. A placeholder alone isn't a reliable accessible name.
 - Add automatic dark mode that follows the system colour scheme, using daisyUI's `business` theme alongside `bumblebee`, with no toggle or JavaScript. Remove `data-theme` from `<html>`, since it would lock the page to one theme, and add a `color-scheme` meta tag. In dark mode the Lookup button uses a darker navy primary instead of the orange accent, and the corners use `bumblebee`'s rounder radii so both modes match.
 - Build the page's CSS locally instead of loading Tailwind and daisyUI from jsDelivr. The Docker builder stage downloads the Tailwind 4.3.3 standalone CLI (checked against pinned SHA-256s for amd64 and arm64) and compiles `services/web/project/styles/app.css` into `project/assets/app.css`, which is gitignored. daisyUI 5.7.46 is vendored as a plugin, with only the `bumblebee` theme enabled. This removes the runtime dependency on a third-party CDN and ships only the CSS the template uses.
 - Add a doctype, `lang="en"`, and a viewport meta tag to `home.html`, and drop classes that did nothing (`form`, `justify-left`, and `loading-circle`, which aren't Tailwind or daisyUI 5 classes).
