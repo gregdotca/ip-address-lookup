@@ -15,6 +15,8 @@ docker-compose up -d --build     # build and run (prod: gunicorn, host port 8093
 docker-compose logs -f web       # follow app logs
 ```
 
+The published port binds to `${BIND_ADDRESS:-127.0.0.1}`, so by default it's only reachable from the host (prod sits behind a reverse proxy). A deployment sets `BIND_ADDRESS` in the shell or in a gitignored `.env` next to `docker-compose.yml`; never put a server's real IP in the repo.
+
 Linting happens inside the Docker build (builder stage), so a lint failure fails the build. To run it locally with the same settings:
 
 ```bash
