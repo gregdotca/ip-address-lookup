@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-21
+
+- Bind the published port to `127.0.0.1` by default in `docker-compose.yml`. It was `8093:5000`, which Docker publishes on every interface, so on a server the app could be reached directly on its public IP, skipping the reverse proxy in front of it. The port is now `${BIND_ADDRESS:-127.0.0.1}:8093:5000`, so a deployment that needs another address sets `BIND_ADDRESS` in the shell or in a `.env` file next to `docker-compose.yml`, without changing the repo. `.env` is added to `.gitignore` so a deployment's settings aren't committed.
+- Update the installation steps in `README.md` to load `http://127.0.0.1:8093`, and explain the default bind address and how `BIND_ADDRESS` changes it.
+
 ## 2026-10-12
 
 - Update Python from 3.14.7 to 3.14.8 (`python:3.14.8-slim`) in both stages of `services/web/Dockerfile`. 3.14.8 is an expedited security release (fixes for SSL and tarfile bugs, among others). Tested in the production image: flake8 passes during the build, the page and its assets load, `8.8.8.8` and `2606:4700:4700::1111` return their ISP and organisation, an invalid address gets the usual error message, and `HEAD /` redirects. The locally excluded dev Dockerfile isn't in the repo; it was moved to 3.14.8 by hand to match.

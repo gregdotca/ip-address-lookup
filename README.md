@@ -11,7 +11,9 @@ https://ip.greg.ca
 
 - Clone the repository
 - Run "docker-compose up -d"
-- Load http://IP_ADDRESS:8093 in your web browser
+- Load http://127.0.0.1:8093 in your web browser
+
+The port listens on 127.0.0.1 only by default, so it's meant to sit behind a reverse proxy on the same host. To listen on another address, set `BIND_ADDRESS`, either in the shell or in a `.env` file next to `docker-compose.yml` (for example `BIND_ADDRESS=0.0.0.0` for every interface).
 
 
 ## Special Thanks
