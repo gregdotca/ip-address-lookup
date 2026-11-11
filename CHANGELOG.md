@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-11
+
+- Link the rating in `ACR.md` to its page on aicoderating.com.
+
 ## 2026-10-21
 
 - Bind the published port to `127.0.0.1` by default in `docker-compose.yml`. It was `8093:5000`, which Docker publishes on every interface, so on a server the app could be reached directly on its public IP, skipping the reverse proxy in front of it. The port is now `${BIND_ADDRESS:-127.0.0.1}:8093:5000`, so a deployment that needs another address sets `BIND_ADDRESS` in the shell or in a `.env` file next to `docker-compose.yml`, without changing the repo. `.env` is added to `.gitignore` so a deployment's settings aren't committed.
